@@ -63,7 +63,7 @@ public class FayConnectorService extends Service {
 
     //创建通知
     private String createNotificationChannel(String channelID, String channelNAME, int level) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel(channelID, channelNAME, level);
             manager.createNotificationChannel(channel);
@@ -375,16 +375,16 @@ public class FayConnectorService extends Service {
                     while (running) {
                         String statusStr = socket == null ? "正在连接" : "已经连接";
                         if (totalsend + totalrece > 2048){
-                            inotify("fay connector demo", statusStr + "fay控制器，累计接收/发送：" + String.format("%.2f", (double)totalrece / 1024) + "/" + String.format("%.2f", (double)totalsend / 1024) + "MB");
+                            inotify("lamhung connector demo", statusStr + "控制器，累计接收/发送：" + String.format("%.2f", (double)totalrece / 1024) + "/" + String.format("%.2f", (double)totalsend / 1024) + "MB");
                         } else {
-                            inotify("fay connector demo", statusStr + "fay控制器，累计接收/发送：" + totalrece + "/" + totalsend + "KB");
+                            inotify("lamhung connector demo", statusStr + "控制器，累计接收/发送：" + totalrece + "/" + totalsend + "KB");
                         }
                         if (socket == null || in == null || out == null || new Date().getTime() - keepTime > 12000){
                             reconnectSocket();
                         }
                         Thread.sleep(3000);
                     }
-                    inotify("fay connector demo", "已经断开fay控制器");
+                    inotify("lamhung connector demo", "已经断开控制器");
                     running = false;
                 }catch (Exception e){
                     Log.e("fay", e.toString());
@@ -460,9 +460,9 @@ public class FayConnectorService extends Service {
             in = socket.getInputStream();
             out = socket.getOutputStream();
             keepTime = new Date().getTime();
-            Log.d("fay", "重新连接 fay 控制器成功");
+            Log.d("fay", "重新连接  控制器成功");
         } catch (IOException e) {
-            Log.e("fay", "重新连接 fay 控制器失败", e);
+            Log.e("fay", "重新连接  控制器失败", e);
         }
     }
 
